@@ -1,5 +1,5 @@
 import {browser, by, element } from 'protractor';
-import {waitFor, waitAndClick} from "./../utils/helpers.ts";
+import {waitFor} from "./../utils/helpers.ts";
 import {BasePageObject} from "./base.pageObject";
 
 export class MainPageObject extends BasePageObject{
@@ -8,6 +8,9 @@ export class MainPageObject extends BasePageObject{
     return element(by.xpath('//div[@class="geolink__button b-ico-geoarrow geolink__button_size_s"]'));
   }
 
+  get textLocation() {
+    return element(by.xpath('//span[@class="geolink__reg"]'));
+  }
   get linkMore() {
       return element(by.xpath('//div/a[8]'));
   }

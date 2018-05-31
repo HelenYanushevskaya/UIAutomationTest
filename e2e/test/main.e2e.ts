@@ -1,9 +1,7 @@
 import { basePO } from './../pageObjects/base.pageObject';
 import { mainPO } from './../pageObjects/main.pageObject';
 import { locationPO } from './../pageObjects/location.pageObject';
-
-
-import { browser, by, element } from 'protractor';
+import {waitFor} from "./../utils/helpers.ts";
 
 describe('Первый пулл тестов', () => {
 
@@ -20,11 +18,16 @@ describe('Первый пулл тестов', () => {
 
     await mainPO.goToLocation();
     await locationPO.setValueLocation(newLocation);
-    await mainPO.clickMore();
 
-    //const textNewLocation = await mainPO.popupMore.getText();
+    await waitFor(mainPO.textLocation);
 
-    //expect(textNewLocation).toBe(textCurrentLocation);
+    //expect(locationPO.searchlocation.isDisplayed()).toBe(true);
+
+    /*await mainPO.clickMore();
+
+    const textNewLocation = await mainPO.popupMore.getText();
+
+    expect(textNewLocation).toBe(textCurrentLocation);*/
   });
 
 });
