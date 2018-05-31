@@ -1,6 +1,6 @@
-import {browser} from 'protractor';
+import {browser, ElementFinder} from 'protractor';
 
-async function checkElementDisplayed(element, count): boolean {
+async function checkElementDisplayed(element: ElementFinder , count: number): boolean {
   if (count < 10) {
     try {
       var result = await element.isDisplayed();
@@ -26,13 +26,13 @@ async function checkElementDisplayed(element, count): boolean {
   }
 };
 
-export function waitFor(element) {
+export function waitFor(element: ElementFinder ) {
   var count = 0;
   checkElementDisplayed(element, count);
 };
 
 
-export async function waitForClickable(element) {
+export async function waitForClickable(element: ElementFinder) {
   var EC = protractor.ExpectedConditions;
 
   await browser.wait(EC.elementToBeClickable(element, 5000));

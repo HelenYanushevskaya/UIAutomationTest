@@ -1,7 +1,6 @@
 import { basePO } from './../pageObjects/base.pageObject';
 import { mainPO } from './../pageObjects/main.pageObject';
 import { locationPO } from './../pageObjects/location.pageObject';
-import {waitFor} from "./../utils/helpers.ts";
 
 describe('Первый пулл тестов', () => {
 

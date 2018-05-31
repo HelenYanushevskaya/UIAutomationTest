@@ -1,22 +1,21 @@
-import {browser, by, element } from 'protractor';
+import {by, element, ElementFinder} from 'protractor';
 import {waitFor,waitForClickable} from "./../utils/helpers.ts";
-import {BasePageObject} from "./base.pageObject";
 
-export class MainPageObject extends BasePageObject{
+export class MainPageObject {
 
-  get linkLocation() {
+  get linkLocation(): ElementFinder  {
     return element(by.className('geolink__button b-ico-geoarrow geolink__button_size_s'));
   }
 
-  get textLocation() {
+  get textLocation(): ElementFinder  {
     return element(by.className('geolink__reg'));
   }
 
-  get linkMore() {
+  get linkMore(): ElementFinder  {
       return element(by.className('home-link home-link_blue_yes home-tabs__link home-tabs__more-switcher'));
   }
 
-  get popupMore() {
+  get popupMore(): ElementFinder {
     return element(by.className('home-tabs__more'));
   }
 

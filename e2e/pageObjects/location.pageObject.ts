@@ -1,24 +1,23 @@
-import {by, element, browser } from 'protractor';
+import {by, element, browser, ElementFinder} from 'protractor';
 import {waitFor} from "./../utils/helpers.ts";
-import {BasePageObject, basePO} from "./base.pageObject";
 import {waitForClickable} from "../utils/helpers";
 
-export class LocationPageObject extends BasePageObject{
+export class LocationPageObject {
 
-  get inputLocation() {
+  get inputLocation(): ElementFinder  {
     return element(by.className('input__control input__input'));
   }
 
-  get popupSearchlocation() {
+  get popupSearchlocation(): ElementFinder {
     return element(by.className('popup_to_bottom'));
   }
 
-  get searchlocation() {
+  get searchlocation(): ElementsFinder {
     return element.all(by.className('b-autocomplete-item__reg'));
   }
 
-  get firstSearchlocation() {
-    return this.searchlocation.first()
+  get firstSearchlocation(): ElementFinder {
+    return this.searchlocation.first();
   }
 
   async setValueLocation(value: string){
