@@ -1,22 +1,23 @@
 import {browser, by, element } from 'protractor';
-import {waitFor} from "./../utils/helpers.ts";
+import {waitFor,waitForClickable} from "./../utils/helpers.ts";
 import {BasePageObject} from "./base.pageObject";
 
 export class MainPageObject extends BasePageObject{
 
   get linkLocation() {
-    return element(by.xpath('//div[@class="geolink__button b-ico-geoarrow geolink__button_size_s"]'));
+    return element(by.className('geolink__button b-ico-geoarrow geolink__button_size_s'));
   }
 
   get textLocation() {
-    return element(by.xpath('//span[@class="geolink__reg"]'));
+    return element(by.className('geolink__reg'));
   }
+
   get linkMore() {
-      return element(by.xpath('//div/a[8]'));
+      return element(by.className('home-link home-link_blue_yes home-tabs__link home-tabs__more-switcher'));
   }
 
   get popupMore() {
-    return element(by.xpath('//div[@class = \'home-tabs__more\']'));
+    return element(by.className('home-tabs__more'));
   }
 
   async goToLocation() {
@@ -26,6 +27,7 @@ export class MainPageObject extends BasePageObject{
 
   async clickMore() {
     await waitFor(this.linkMore);
+    await waitForClickable(this.linkMore);
     await this.linkMore.click();
     await waitFor(mainPO.popupMore);
   }

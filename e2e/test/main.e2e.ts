@@ -10,24 +10,23 @@ describe('Первый пулл тестов', () => {
   });
 
   fit('Изменение информации в "ЕЩЕ" при смены локации', async () => {
-    const newLocation = 'Лондон';
+    const LondonLocation = 'Лондон';
+    const ParisLocation = 'Париж';
+
+    await mainPO.goToLocation();
+    await locationPO.setValueLocation(LondonLocation);
 
     await mainPO.clickMore();
 
-    const textCurrentLocation = await mainPO.popupMore.getText();
+    const textLondonLocation = await mainPO.popupMore.getText();
 
     await mainPO.goToLocation();
-    await locationPO.setValueLocation(newLocation);
+    await locationPO.setValueLocation(ParisLocation);
+    await mainPO.clickMore();
 
-    await waitFor(mainPO.textLocation);
+    const textParisLocation = await mainPO.popupMore.getText();
 
-    //expect(locationPO.searchlocation.isDisplayed()).toBe(true);
-
-    /*await mainPO.clickMore();
-
-    const textNewLocation = await mainPO.popupMore.getText();
-
-    expect(textNewLocation).toBe(textCurrentLocation);*/
+    expect(textParisLocation).toBe(textLondonLocation);
   });
 
 });

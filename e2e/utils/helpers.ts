@@ -32,4 +32,11 @@ export function waitFor(element) {
 };
 
 
+export async function waitForClickable(element) {
+  var EC = protractor.ExpectedConditions;
+
+  await browser.wait(EC.elementToBeClickable(element, 5000));
+
+}
+
 
