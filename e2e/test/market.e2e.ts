@@ -18,6 +18,7 @@ fdescribe('Работа с базовыми контролами', () => {
     await scrollTo(marketPO.storeRating1);
     await checkRadioButton(marketPO.storeRating1);
 
+    await scrollTo(marketPO.headerSearch);
     await setText(marketPO.headerSearch, value);
     await selectFromDropdownByItem(marketPO.searchSuggest, 1);
   });
