@@ -2,13 +2,13 @@ import { basePO } from './../pageObjects/base.pageObject';
 import { mainPO } from './../pageObjects/main.pageObject';
 import { locationPO } from './../pageObjects/location.pageObject';
 
-describe('Первый пулл тестов', () => {
+xdescribe('Первый пулл тестов', () => {
 
   beforeAll(async () => {
     await basePO.goToYandexPage();
   });
 
-  fit('Изменение информации в "ЕЩЕ" при смены локации', async () => {
+  it('Изменение информации в "ЕЩЕ" при смены локации', async () => {
     const LondonLocation = 'Лондон';
     const ParisLocation = 'Париж';
 
