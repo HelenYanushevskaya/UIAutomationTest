@@ -60,12 +60,27 @@ export async function setText(element: ElementFinder, text: string): string {
   return await element.getAttribute('value');
 }
 
+//в функцию отправляем список элементов из выпадающего списка и номер на который нужно кликнуть
 export async function selectFromDropdownByItem(elements: ElementArrayFinder, item: number) {
-  if (item) {
-    waitFor(elements.get(item));
-    waitForClickable(elements.get(item));
-    await elements.get(item).click();
+  if (item) { //если введен номер элемента в списке
+    waitFor(elements.get(item)); //ожидаем появления этого элемента
+    waitForClickable(elements.get(item)); //ждем пока он не станет кликабельным
+    await elements.get(item).click(); //кликаем на элемент
   }
+}
+
+export async function pressEnter() {
+  await browser
+    .actions()
+    .sendKeys(protractor.Key.ENTER)
+    .perform();
+}
+
+export async function scrollToElement (element: ElementFinder) {
+  await browser
+    .actions()
+    .mouseDown(element)
+    .perform();
 }
 
 
