@@ -3,7 +3,7 @@ import { marketPO } from './../pageObjects/market.pageObject';
 import {checkCheckbox, checkRadioButton, scrollTo, setText, selectFromDropdownByItem, waitFor, scrollToElement} from "../utils/helpers";
 import {browser} from "protractor";
 
-fdescribe('Работа с базовыми контролами', () => {
+describe('Работа с базовыми контролами', () => {
 
   beforeAll(async () => {
     await basePO.goToMobileMarketYandexPage();

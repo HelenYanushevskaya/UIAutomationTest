@@ -1,7 +1,8 @@
 import {by, element, ElementFinder} from 'protractor';
 import {waitFor,waitForClickable} from "./../utils/helpers.ts";
+import {BasePageObject} from "./base.pageObject";
 
-export class MainPageObject {
+export class MainPageObject{
 
   get linkLocation(): ElementFinder  {
     return element(by.className('geolink__button b-ico-geoarrow geolink__button_size_s'));
@@ -24,16 +25,45 @@ export class MainPageObject {
   }
 
   get langs(): ElementFinder {
-    return element(by.className('T0 headline__bar-item b-langs'));
+    return element(by.className('link  dropdown-menu__switcher'));
   }
 
-  get menu(): ElementFinder {
-    return element(by.className('b-menu__list b-menu-vert__layout'));
+  get moreLangs(): ElementFinder {
+    return element(by.className('b-menu__item b-menu__layout-vert-cell_position_last b-menu__item_pos_last'));
   }
 
   get itemMenu(): ElementFinder {
     return element(by.className('b-menu__item b-menu__layout-vert-cell'));
   }
+
+  get linkVideo(): ElementFinder  {
+    return element(by.css('a[data-id = "video"]'));
+  }
+
+  get linkImages(): ElementFinder  {
+    return element(by.css('a[data-id = "images"]'));
+  }
+
+  get linkNews(): ElementFinder  {
+    return element(by.css('a[data-id = "news"]'));
+  }
+
+  get linkMaps(): ElementFinder  {
+    return element(by.css('a[data-id = "maps"]'));
+  }
+
+  get linkMarket(): ElementFinder  {
+    return element(by.css('a[data-id = "market"]'));
+  }
+
+  get linkTranslate(): ElementFinder  {
+    return element(by.css('a[data-id = "translate"]'));
+  }
+
+  get linkMusic(): ElementFinder  {
+    return element(by.css('a[data-id = "music"]'));
+  }
+
 
   async goToLocation() {
     await waitFor(this.linkLocation);

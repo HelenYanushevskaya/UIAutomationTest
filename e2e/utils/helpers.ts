@@ -1,4 +1,5 @@
 import {browser, ElementArrayFinder, ElementFinder, protractor} from 'protractor';
+import {elementClass} from "@angular/core/src/render3/instructions";
 
 async function checkElementDisplayed(element: ElementFinder , count: number): boolean {
   if (count < 10) {
@@ -27,7 +28,6 @@ export function waitFor(element: ElementFinder ) {
   const count = 0;
   checkElementDisplayed(element, count);
 }
-
 
 export async function waitForClickable(element: ElementFinder) {
   const EC = protractor.ExpectedConditions;
@@ -63,7 +63,6 @@ export async function setText(element: ElementFinder, text: string): string {
 //в функцию отправляем список элементов из выпадающего списка и номер на который нужно кликнуть
 export async function selectFromDropdownByItem(elements: ElementArrayFinder, item: number) {
   if (item) { //если введен номер элемента в списке
-    waitFor(elements.get(item)); //ожидаем появления этого элемента
     waitForClickable(elements.get(item)); //ждем пока он не станет кликабельным
     await elements.get(item).click(); //кликаем на элемент
   }
@@ -81,6 +80,11 @@ export async function scrollToElement (element: ElementFinder) {
     .actions()
     .mouseDown(element)
     .perform();
+}
+
+export async function waitAndClick(element: ElementFinder): string {
+  await waitForClickable(element);
+  await element.click();
 }
 
 
