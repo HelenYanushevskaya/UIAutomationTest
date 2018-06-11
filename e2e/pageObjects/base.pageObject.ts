@@ -1,9 +1,9 @@
 import {browser, by, element, ElementArrayFinder, ElementFinder, protractor} from 'protractor';
-import {waitFor,waitAndClick, setText} from "./../utils/helpers.ts";
-import {waitForClickable, selectFromDropdownByItem} from "../utils/helpers";
-import { mailPO } from './../pageObjects/mail.pageObject';
+import {helpers} from "../utils/helpers";
+import {mailPO} from './../pageObjects/mail.pageObject';
 
-export class BasePageObject {
+
+export class BasePageObject{
 
   get buttonLogInMail(): ElementFinder  {
     return element(by.className('desk-notif-card__login-enter-expanded button_theme_bordergray'));
@@ -49,21 +49,34 @@ export class BasePageObject {
 
   async login(login: string, password:string) {
     await this.goToYandexPage();
-    await waitAndClick(this.buttonLogInMail);
+    await helpers.waitAndClick(this.buttonLogInMail);
 
-    const user = await this.otherAccount.isPresent();
+    const user: boolean = await this.otherAccount.isPresent();
     if (user == true){
-      await waitAndClick(this.otherAccount);
-      await waitFor(this.inputLogin);
+      await helpers.waitAndClick(this.otherAccount);
+      await helpers.waitFor(this.inputLogin);
     }
-    await setText(this.inputLogin, login);
-    await setText(this.inputPassword, password);
-    await waitAndClick(this.passportButtonText);
+    await helpers.setText(this.inputLogin, login);
+    await helpers.setText(this.inputPassword, password);
+    await helpers.waitAndClick(this.passportButtonText);
+    await helpers.waitForClickable(mailPO.mailUserName);
+  }
+
+  async invalidLogin(login: string, password:string) {
+    await basePO.login(login, password);
+    await browser.sleep(1000);
+    await helpers.waitFor(basePO.errorAutorization);
   }
 
   async logout(){
-    await waitAndClick(mailPO.mailUserAvatar);
-    await selectFromDropdownByItem(mailPO.mailDropdownItem,4)
+    await helpers.waitAndClick(mailPO.mailUserAvatar);
+    await helpers.selectFromDropdownByItem(mailPO.mailDropdownItem,4)
+  }
+
+  async navigateTo(element: ElementFinder){
+    await basePO.goToYandexPage();
+    await helpers.waitAndClick(element);
+
   }
 }
 

@@ -1,4 +1,5 @@
 import {by, element, ElementArrayFinder, ElementFinder} from 'protractor';
+import {helpers} from "../utils/helpers";
 
 export class LangsPageObject{
 
@@ -16,6 +17,12 @@ export class LangsPageObject{
 
   get optionsHeader(): ElementFinder  {
     return element(by.className('options__header'));
+  }
+
+  async changeLangs(number: number) {
+    await helpers.waitAndClick(this.buttonLangs);
+    await helpers.selectFromDropdownByItem(this.itemLangs, number);
+    await helpers.waitAndClick(this.buttonSaveLangs);
   }
 }
 

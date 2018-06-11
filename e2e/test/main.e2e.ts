@@ -3,8 +3,8 @@ import { mainPO } from './../pageObjects/main.pageObject';
 import { mailPO } from './../pageObjects/mail.pageObject';
 import { langsPO } from './../pageObjects/langs.pageObject';
 import { locationPO } from './../pageObjects/location.pageObject';
-import {waitFor, waitForClickable,setText, waitAndClick, selectFromDropdownByItem} from "../utils/helpers";
 import {browser} from "protractor";
+import {helpers} from "../utils/helpers";
 
 describe('Первый пулл тестов', () => {
 
@@ -35,14 +35,13 @@ describe('Первый пулл тестов', () => {
 
 fdescribe('Пулл тестов #2', () => {
 
-  const login = 'AutotestUser';
-  const password = 'AutotestUser123';
-  const invalidLogin = 'NoAutotestUser';
-  const invalidPassword = 'NoAutotestUser123';
+  const login: string = 'AutotestUser';
+  const password: string = 'AutotestUser123';
+  const invalidLogin: string = 'NoAutotestUser';
+  const invalidPassword: string = 'NoAutotestUser123';
 
   it('Логин на яндекс почту', async () => {
     await basePO.login(login, password);
-    await waitForClickable(mailPO.mailUserName);
 
     expect(await mailPO.mailUserName.getText()).toBe(login);
 
@@ -56,72 +55,55 @@ fdescribe('Пулл тестов #2', () => {
     expect(basePO.buttonLogInMail.isDisplayed()).toBeTruthy();
   });
 
-  it('Яндекс почта - невалидный пароль', async () => {
-    await basePO.login(login, invalidPassword);
-    await browser.sleep(1000); // после нажатия кнопки при невалидной авторизации происходит обнвление страницы,
-                               // поэтому недостаточно просто дождаться отображения элемента страницы
-    await waitFor(basePO.errorAutorization);
+  fit('Яндекс почта - невалидный пароль', async () => {
+    await basePO.invalidLogin(login, invalidPassword);
 
     expect(await basePO.errorAutorization.getText()).toBe("Неверный пароль");
   });
 
   it('Яндекс почта - невалидный логин', async () => {
-    await basePO.login(invalidLogin, password);
-    await browser.sleep(1000);
-    await waitFor(basePO.errorAutorization);
+    await basePO.invalidLogin(invalidLogin, password);
 
     expect(await basePO.errorAutorization.getText()).toBe("Такого аккаунта нет");
   });
 
   it('Яндекс - навигация', async () => {
-    await basePO.goToYandexPage();
-    await waitAndClick(mainPO.linkVideo);
+    await basePO.navigateTo(mainPO.linkVideo);
 
     expect(await browser.getCurrentUrl()).toContain('https://yandex.by/video/');
 
-    await basePO.goToYandexPage();
-    await waitAndClick(mainPO.linkImages);
+    await basePO.navigateTo(mainPO.linkImages);
 
     expect(await browser.getCurrentUrl()).toContain('https://yandex.by/images/');
 
-    await basePO.goToYandexPage();
-    await waitAndClick(mainPO.linkNews);
+    await basePO.navigateTo(mainPO.linkNews);
 
     expect(await browser.getCurrentUrl()).toContain('https://news.yandex.by/');
 
-    await basePO.goToYandexPage();
-    await waitAndClick(mainPO.linkMaps);
+    await basePO.navigateTo(mainPO.linkMaps);
 
     expect(await browser.getCurrentUrl()).toContain('https://yandex.by/maps');
 
-    await basePO.goToYandexPage();
-    await waitAndClick(mainPO.linkMarket);
+    await basePO.navigateTo(mainPO.linkMarket);
 
     expect(await browser.getCurrentUrl()).toContain('ttps://market.yandex.by/');
 
-    await basePO.goToYandexPage();
-    await waitAndClick(mainPO.linkTranslate);
+    await basePO.navigateTo(mainPO.linkTranslate);
 
     expect(await browser.getCurrentUrl()).toContain('https://translate.yandex.by/');
 
-    await basePO.goToYandexPage();
-    await waitAndClick(mainPO.linkMusic);
+    await basePO.navigateTo(mainPO.linkMusic);
 
     expect(await browser.getCurrentUrl()).toContain('https://music.yandex.by/home')
   });
 
   it('Яндекс - переключение языка на английский', async () => {
-    await basePO.goToYandexPage();
-    await waitAndClick(mainPO.langs);
-    await waitAndClick(mainPO.moreLangs);
+    await mainPO.goToLangsPage();
 
     expect(await browser.getCurrentUrl()).toContain('https://yandex.by/tune/lang/');
 
-    await waitAndClick(langsPO.buttonLangs);
-    await selectFromDropdownByItem(langsPO.itemLangs, 5);
-    await waitAndClick(langsPO.buttonSaveLangs);
-    await waitAndClick(mainPO.langs);
-    await waitAndClick(mainPO.moreLangs);
+    await langsPO.changeLangs(5);
+    await mainPO.goToLangsPage();
 
     expect(await langsPO.optionsHeader.getText()).toBe('Interface language');
 

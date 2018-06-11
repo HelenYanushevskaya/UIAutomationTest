@@ -1,5 +1,6 @@
-import {by, element, browser, ElementFinder} from 'protractor';
+import {by, element, ElementFinder} from 'protractor';
 import {waitFor, waitForClickable, setText} from "./../utils/helpers.ts";
+import {helpers} from "../utils/helpers";
 
 export class LocationPageObject {
 
@@ -20,9 +21,9 @@ export class LocationPageObject {
   }
 
   async setValueLocation(value: string){
-    await setText(this.inputLocation, value);
-    await waitFor(this.popupSearchlocation);
-    await waitForClickable(this.firstSearchlocation);
+    await helpers.setText(this.inputLocation, value);
+    await helpers.waitFor(this.popupSearchlocation);
+    await helpers.waitForClickable(this.firstSearchlocation);
     await this.firstSearchlocation.click();
   }
 }

@@ -1,6 +1,8 @@
 import {by, element, ElementFinder} from 'protractor';
 import {waitFor,waitForClickable} from "./../utils/helpers.ts";
-import {BasePageObject} from "./base.pageObject";
+import {helpers} from "../utils/helpers";
+import {basePO} from "./base.pageObject";
+import {langsPO} from "./langs.pageObject";
 
 export class MainPageObject{
 
@@ -66,17 +68,22 @@ export class MainPageObject{
 
 
   async goToLocation() {
-    await waitFor(this.linkLocation);
+    await helpers.waitFor(this.linkLocation);
     await this.linkLocation.click();
   }
 
   async clickMore() {
-    await waitFor(this.linkMore);
-    await waitForClickable(this.linkMore);
+    await helpers.waitFor(this.linkMore);
+    await helpers.waitForClickable(this.linkMore);
     await this.linkMore.click();
-    await waitFor(mainPO.popupMore);
+    await helpers.waitFor(this.popupMore);
   }
 
+  async goToLangsPage() {
+    await basePO.goToYandexPage();
+    await helpers.waitAndClick(this.langs);
+    await helpers.waitAndClick(this.moreLangs);
+  }
 }
 
 export const mainPO = new MainPageObject();

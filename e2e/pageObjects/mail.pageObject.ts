@@ -1,7 +1,5 @@
 import {by, element, ElementArrayFinder, ElementFinder} from 'protractor';
 import {waitFor,waitForClickable} from "./../utils/helpers.ts";
-import {BasePageObject} from "./base.pageObject";
-import {first} from "rxjs/operators";
 
 export class MailPageObject{
 

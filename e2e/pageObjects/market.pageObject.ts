@@ -1,7 +1,5 @@
 import {by, element, browser, ElementFinder, ElementArrayFinder} from 'protractor';
-import {mainPO} from "./main.pageObject";
 import {waitFor, waitForClickable} from "../utils/helpers";
-
 
 export class MarketPageObject {
 
