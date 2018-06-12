@@ -55,7 +55,7 @@ fdescribe('Пулл тестов #2', () => {
     expect(basePO.buttonLogInMail.isDisplayed()).toBeTruthy();
   });
 
-  fit('Яндекс почта - невалидный пароль', async () => {
+  it('Яндекс почта - невалидный пароль', async () => {
     await basePO.invalidLogin(login, invalidPassword);
 
     expect(await basePO.errorAutorization.getText()).toBe("Неверный пароль");
@@ -67,32 +67,32 @@ fdescribe('Пулл тестов #2', () => {
     expect(await basePO.errorAutorization.getText()).toBe("Такого аккаунта нет");
   });
 
-  it('Яндекс - навигация', async () => {
-    await basePO.navigateTo(mainPO.linkVideo);
+  fit('Яндекс - навигация', async () => {
+    await basePO.navigateTo(mainPO.linkVideo, 'видео');
 
     expect(await browser.getCurrentUrl()).toContain('https://yandex.by/video/');
 
-    await basePO.navigateTo(mainPO.linkImages);
+    await basePO.navigateTo(mainPO.linkImages, 'картинки');
 
     expect(await browser.getCurrentUrl()).toContain('https://yandex.by/images/');
 
-    await basePO.navigateTo(mainPO.linkNews);
+    await basePO.navigateTo(mainPO.linkNews, "новости");
 
     expect(await browser.getCurrentUrl()).toContain('https://news.yandex.by/');
 
-    await basePO.navigateTo(mainPO.linkMaps);
+    await basePO.navigateTo(mainPO.linkMaps, "карты");
 
     expect(await browser.getCurrentUrl()).toContain('https://yandex.by/maps');
 
-    await basePO.navigateTo(mainPO.linkMarket);
+    await basePO.navigateTo(mainPO.linkMarket, "магазин");
 
     expect(await browser.getCurrentUrl()).toContain('ttps://market.yandex.by/');
 
-    await basePO.navigateTo(mainPO.linkTranslate);
+    await basePO.navigateTo(mainPO.linkTranslate, "переводчик", basePO.logoTextTranslate);
 
     expect(await browser.getCurrentUrl()).toContain('https://translate.yandex.by/');
 
-    await basePO.navigateTo(mainPO.linkMusic);
+    await basePO.navigateTo(mainPO.linkMusic, "музыка", basePO.logoMusic);
 
     expect(await browser.getCurrentUrl()).toContain('https://music.yandex.by/home')
   });
@@ -102,7 +102,7 @@ fdescribe('Пулл тестов #2', () => {
 
     expect(await browser.getCurrentUrl()).toContain('https://yandex.by/tune/lang/');
 
-    await langsPO.changeLangs(5);
+    await langsPO.changeLangsOnEnglish();
     await mainPO.goToLangsPage();
 
     expect(await langsPO.optionsHeader.getText()).toBe('Interface language');

@@ -27,7 +27,7 @@ export class MainPageObject{
   }
 
   get langs(): ElementFinder {
-    return element(by.className('link  dropdown-menu__switcher'));
+    return element(by.cssContainingText('.link__inner', 'Rus'));
   }
 
   get moreLangs(): ElementFinder {

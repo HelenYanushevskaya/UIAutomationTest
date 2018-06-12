@@ -1,4 +1,4 @@
-import {by, element, ElementArrayFinder, ElementFinder} from 'protractor';
+import {browser, by, element, ElementArrayFinder, ElementFinder} from 'protractor';
 import {helpers} from "../utils/helpers";
 
 export class LangsPageObject{
@@ -7,8 +7,8 @@ export class LangsPageObject{
     return element(by.css('button[class*="select__button"]'));
   }
 
-  get itemLangs(): ElementArrayFinder  {
-    return element.all(by.className('select__item'));
+  get englishLangs(): ElementFinder  {
+    return element(by.cssContainingText(".select__text", "English"));
   }
 
   get buttonSaveLangs(): ElementFinder  {
@@ -19,11 +19,14 @@ export class LangsPageObject{
     return element(by.className('options__header'));
   }
 
-  async changeLangs(number: number) {
+  async changeLangsOnEnglish() {
     await helpers.waitAndClick(this.buttonLangs);
-    await helpers.selectFromDropdownByItem(this.itemLangs, number);
+    await helpers.waitAndClick(this.englishLangs);
     await helpers.waitAndClick(this.buttonSaveLangs);
+    await helpers.waitForClickable(this.buttonLangs);
+    await helpers.waitForClickable(this.buttonSaveLangs);
   }
+
 }
 
 export const langsPO = new LangsPageObject();

@@ -2,32 +2,43 @@ import {browser, ElementArrayFinder, ElementFinder, protractor} from 'protractor
 
 export class Helpers {
 
-  async checkElementDisplayed(element: ElementFinder, count: number): boolean {
+  async checkElementDisplayed(element: ElementFinder, count: number, message?: string): boolean {
     if (count < 10) {
       try {
         const result = await element.isDisplayed();
         if (result == false) {
           browser.sleep(1000);
           count++;
-          console.log('Элемент существует в DOM и скрыт');
-          this.checkElementDisplayed(element, count);
+          if (message) {
+            console.log('Элемент существует в DOM и скрыт ' + message);
+            this.checkElementDisplayed(element, count, message);
+          } else {
+            console.log('Элемент существует в DOM и скрыт ');
+            this.checkElementDisplayed(element, count);
+          }
         } else {
           return true;
         }
       } catch (error) {
         browser.sleep(1000);
         count++;
-        this.checkElementDisplayed(element, count);
+        this.checkElementDisplayed(element, count, message);
       }
     } else {
-      console.log('Элемент не существует в DOM');
+      if (message) {
+        console.log('Элемент не существует в DOM ' + message);
+        this.checkElementDisplayed(element, count, message);
+      } else {
+        console.log('Элемент не существует в DOM ');
+        this.checkElementDisplayed(element, count);
+      }
       return false;
     }
   }
 
-  async waitFor(element: ElementFinder) {
+  async waitFor(element: ElementFinder, message?: string) {
     const count = 0;
-    this.checkElementDisplayed(element, count);
+    this.checkElementDisplayed(element, count, message);
   }
 
   async waitForClickable(element: ElementFinder) {

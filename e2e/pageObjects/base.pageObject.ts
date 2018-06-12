@@ -37,6 +37,18 @@ export class BasePageObject{
     return element(by.className('passport-Domik-Account-Link passport-Domik-Link'));
   }
 
+  get logo(): ElementFinder  {
+    return element.all(by.css('[class *= "logo"]')).first();
+  }
+
+  get logoMusic(): ElementFinder  {
+    return element(by.className('logo__ya-sub'));
+  }
+
+  get logoTextTranslate(): ElementFinder  {
+    return element(by.className('logo-text'));
+  }
+
   goToYandexPage() {
     browser.waitForAngularEnabled(false);
     return browser.get('https://yandex.by/');
@@ -73,10 +85,15 @@ export class BasePageObject{
     await helpers.selectFromDropdownByItem(mailPO.mailDropdownItem,4)
   }
 
-  async navigateTo(element: ElementFinder){
+  async navigateTo(element: ElementFinder, page?: string, waitElement?: ElementFinder,){
     await basePO.goToYandexPage();
     await helpers.waitAndClick(element);
-
+    if (waitElement) {
+      await helpers.waitFor(waitElement, page);
+    }
+    else {
+      await helpers.waitFor(this.logo, page);
+    }
   }
 }
 
