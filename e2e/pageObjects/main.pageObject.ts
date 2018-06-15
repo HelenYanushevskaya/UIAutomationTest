@@ -1,10 +1,8 @@
 import {by, element, ElementFinder} from 'protractor';
-import {waitFor,waitForClickable} from "./../utils/helpers.ts";
-import {helpers} from "../utils/helpers";
-import {basePO} from "./base.pageObject";
-import {langsPO} from "./langs.pageObject";
-
-export class MainPageObject{
+import {helpers} from '../utils/helpers';
+import {basePO} from './base.pageObject';
+declare let allure: any;
+export class MainPageObject {
 
   get linkLocation(): ElementFinder  {
     return element(by.className('geolink__button b-ico-geoarrow geolink__button_size_s'));
@@ -66,15 +64,16 @@ export class MainPageObject{
     return element(by.css('a[data-id = "music"]'));
   }
 
-
   async goToLocation() {
-    await helpers.waitFor(this.linkLocation);
-    await this.linkLocation.click();
+    await allure.createStep('123132165', async() => {
+      await helpers.waitFor(this.linkLocation);
+      await this.linkLocation.click();
+    })();
   }
 
   async clickMore() {
     await helpers.waitFor(this.linkMore);
-    await helpers.waitForClickable(this.linkMore);
+    await helpers.waitForClickableEC(this.linkMore);
     await this.linkMore.click();
     await helpers.waitFor(this.popupMore);
   }

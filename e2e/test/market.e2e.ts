@@ -1,16 +1,6 @@
 import { basePO } from './../pageObjects/base.pageObject';
 import { marketPO } from './../pageObjects/market.pageObject';
-import {
-  checkCheckbox,
-  checkRadioButton,
-  scrollTo,
-  setText,
-  selectFromDropdownByItem,
-  waitFor,
-  scrollToElement,
-  helpers
-} from "../utils/helpers";
-import {browser} from "protractor";
+import { helpers } from '../utils/helpers';
 
 describe('Работа с базовыми контролами', () => {
 
@@ -21,13 +11,13 @@ describe('Работа с базовыми контролами', () => {
   it('Проверка работы базовых контроллеров', async () => {
     const value = 'привет';
 
-    await helpers.scrollToElement(marketPO.xiaomi);
+    await helpers.scrollToElementAction(marketPO.xiaomi);
     await helpers.checkCheckbox(marketPO.xiaomi);
 
-    await helpers.scrollToElement(marketPO.storeRating1);
+    await helpers.scrollToElementAction(marketPO.storeRating1);
     await helpers.checkRadioButton(marketPO.storeRating1);
 
-    await helpers.scrollToElement(marketPO.headerSearch);
+    await helpers.scrollToElementAction(marketPO.headerSearch);
     await helpers.setText(marketPO.headerSearch, value);
     await helpers.selectFromDropdownByItem(marketPO.searchSuggest, 1);
   });

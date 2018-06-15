@@ -3,19 +3,17 @@ import { mainPO } from './../pageObjects/main.pageObject';
 import { mailPO } from './../pageObjects/mail.pageObject';
 import { langsPO } from './../pageObjects/langs.pageObject';
 import { locationPO } from './../pageObjects/location.pageObject';
-import {browser} from "protractor";
-import {helpers} from "../utils/helpers";
-
+import {browser} from 'protractor';
+declare let allure: any;
 describe('Первый пулл тестов', () => {
 
   beforeAll(async () => {
     await basePO.goToYandexPage();
   });
 
-  it('Изменение информации в "ЕЩЕ" при смены локации', async () => {
+  fit('Изменение информации в "ЕЩЕ" при смены локации', async () => {
     const LondonLocation = 'Лондон';
     const ParisLocation = 'Париж';
-
     await mainPO.goToLocation();
     await locationPO.setValueLocation(LondonLocation);
 
@@ -23,17 +21,17 @@ describe('Первый пулл тестов', () => {
 
     const textLondonLocation = await mainPO.popupMore.getText();
 
-    await mainPO.goToLocation();
+    /*await mainPO.goToLocation();
     await locationPO.setValueLocation(ParisLocation);
     await mainPO.clickMore();
 
     const textParisLocation = await mainPO.popupMore.getText();
 
-    expect(textParisLocation).toBe(textLondonLocation);
+    expect(textParisLocation).toBe(textLondonLocation);*/
   });
 });
 
-fdescribe('Пулл тестов #2', () => {
+describe('Пулл тестов #2', () => {
 
   const login: string = 'AutotestUser';
   const password: string = 'AutotestUser123';
@@ -67,7 +65,7 @@ fdescribe('Пулл тестов #2', () => {
     expect(await basePO.errorAutorization.getText()).toBe("Такого аккаунта нет");
   });
 
-  fit('Яндекс - навигация', async () => {
+  it('Яндекс - навигация', async () => {
     await basePO.navigateTo(mainPO.linkVideo, 'видео');
 
     expect(await browser.getCurrentUrl()).toContain('https://yandex.by/video/');

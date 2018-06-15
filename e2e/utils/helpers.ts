@@ -41,7 +41,7 @@ export class Helpers {
     this.checkElementDisplayed(element, count, message);
   }
 
-  async waitForClickable(element: ElementFinder) {
+  async waitForClickableEC(element: ElementFinder) {
     const EC = protractor.ExpectedConditions;
 
     await browser.wait(EC.elementToBeClickable(element, 5000));
@@ -54,13 +54,13 @@ export class Helpers {
 
   async checkCheckbox(element: ElementFinder) {
     await this.waitFor(element);
-    await this.waitForClickable(element);
+    await this.waitForClickableEC(element);
     await element.click();
   }
 
   async checkRadioButton(element: ElementFinder) {
     await this.waitFor(element);
-    await this.waitForClickable(element);
+    await this.waitForClickableEC(element);
     await element.click();
   }
 
@@ -75,7 +75,7 @@ export class Helpers {
 //в функцию отправляем список элементов из выпадающего списка и номер на который нужно кликнуть
   async selectFromDropdownByItem(elements: ElementArrayFinder, item: number) {
     if (item) { //если введен номер элемента в списке
-      this.waitForClickable(elements.get(item)); //ждем пока он не станет кликабельным
+      this.waitForClickableEC(elements.get(item)); //ждем пока он не станет кликабельным
       await
       elements.get(item).click(); //кликаем на элемент
     }
@@ -88,7 +88,23 @@ export class Helpers {
       .perform();
   }
 
-  async scrollToElement(element: ElementFinder) {
+  async sendTextAction(element: ElementFinder, value: string) {
+    await element.clear(); //для очистки поля
+    await browser
+      .actions()
+      .click(element)
+      .sendKeys(value)
+      .perform();
+  }
+
+  async clickElementAction(element: ElementFinder) {
+    await browser
+      .actions()
+      .click(element)
+      .perform();
+  }
+
+  async scrollToElementAction(element: ElementFinder) {
     await browser
       .actions()
       .mouseDown(element)
@@ -96,9 +112,22 @@ export class Helpers {
   }
 
   async waitAndClick(element: ElementFinder): string {
-    await this.waitForClickable(element);
+    await this.waitForClickableEC(element);
     await element.click();
   }
+
+  async waitElementEC(element: ElementFinder): string {
+    const EC = protractor.ExpectedConditions;
+
+    browser.wait(EC.visibilityOf(element), 5000);
+  }
+
+  async waitForClickableEC(element: ElementFinder) {
+    const EC = protractor.ExpectedConditions;
+
+    await browser.wait(EC.elementToBeClickable(element, 5000,));
+  }
+
 }
 
 export const helpers = new Helpers();

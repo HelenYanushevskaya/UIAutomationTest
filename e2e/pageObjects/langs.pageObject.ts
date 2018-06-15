@@ -23,8 +23,8 @@ export class LangsPageObject{
     await helpers.waitAndClick(this.buttonLangs);
     await helpers.waitAndClick(this.englishLangs);
     await helpers.waitAndClick(this.buttonSaveLangs);
-    await helpers.waitForClickable(this.buttonLangs);
-    await helpers.waitForClickable(this.buttonSaveLangs);
+    await helpers.waitForClickableEC(this.buttonLangs);
+    await helpers.waitForClickableEC(this.buttonSaveLangs);
   }
 
 }

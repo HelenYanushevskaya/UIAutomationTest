@@ -20,10 +20,10 @@ export class LocationPageObject {
     return this.searchlocation.first();
   }
 
-  async setValueLocation(value: string){
-    await helpers.setText(this.inputLocation, value);
-    await helpers.waitFor(this.popupSearchlocation);
-    await helpers.waitForClickable(this.firstSearchlocation);
+  async setValueLocation(value: string) {
+    await helpers.sendTextAction(this.inputLocation, value);
+    await helpers.waitElementEC(this.popupSearchlocation);
+    await helpers.waitForClickableEC(this.firstSearchlocation);
     await this.firstSearchlocation.click();
   }
 }
