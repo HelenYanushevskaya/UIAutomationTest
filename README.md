@@ -5,7 +5,8 @@
 * запуск webdriver - **$ ./node_modules/protractor/bin/webdriver-manager start**
 * установка html-reporter - **$ npm install protractor-jasmine2-html-reporter --save-dev**
 * запуск html-reporter - **$ npm i jasmine-allure-reporter**
-* установка allure-reporter - **$ sudo apt-add-repository ppa:qameta/allure ** 
+* установка allure-reporter - 
+                              **$ sudo apt-add-repository ppa:qameta/allure ** 
                               **$ sudo apt-get update **
                               **$ sudo apt-get install allure **
                                или
