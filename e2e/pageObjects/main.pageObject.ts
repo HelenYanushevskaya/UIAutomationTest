@@ -73,7 +73,7 @@ export class MainPageObject {
 
   async clickMore() {
     await helpers.waitFor(this.linkMore);
-    await helpers.waitForClickableEC(this.linkMore);
+    await helpers.waitForClickable(this.linkMore);
     await this.linkMore.click();
     await helpers.waitFor(this.popupMore);
   }

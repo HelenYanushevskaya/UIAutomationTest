@@ -1,6 +1,8 @@
 import {browser, by, element, ElementArrayFinder, ElementFinder, protractor} from 'protractor';
 import {helpers} from '../utils/helpers';
 import {mailPO} from './../pageObjects/mail.pageObject';
+import {mainPO} from './main.pageObject';
+import {musicPO} from './music.pageObject';
 
 
 export class BasePageObject {
@@ -69,11 +71,10 @@ export class BasePageObject {
       await helpers.waitAndClick(this.otherAccount);
       await helpers.waitFor(this.inputLogin);
     }
-    //await helpers.setText(this.inputLogin, login);
     await helpers.sendTextAction(this.inputLogin, login);
     await helpers.sendTextAction(this.inputPassword, password);
     await helpers.waitAndClick(this.passportButtonText);
-    await helpers.waitForClickableEC(mailPO.mailUserName);
+    await helpers.waitForClickable(mailPO.mailUserName);
   }
 
   async invalidLogin(login: string, password: string) {
@@ -96,6 +97,21 @@ export class BasePageObject {
       await helpers.waitFor(this.logo, page);
     }
   }
+
+  async goToMusic() {
+    await basePO.goToYandexPage();
+    await helpers.waitAndClick(mainPO.linkMusic);
+    await helpers.waitElement(musicPO.inputSearchMusic);
+    await helpers.waitForDisappearance(musicPO.overhead);
+    await helpers.waitForClickable(musicPO.inputSearchMusic);
+    await browser.sleep(1000);
+  }
+
+  async goToMaroon5() {
+    browser.waitForAngularEnabled(false);
+    return browser.get('https://music.yandex.by/artist/26046');
+  }
+
 }
 
 export const basePO = new BasePageObject();

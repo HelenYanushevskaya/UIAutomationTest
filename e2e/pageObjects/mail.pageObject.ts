@@ -1,5 +1,4 @@
 import {by, element, ElementArrayFinder, ElementFinder} from 'protractor';
-import {waitFor,waitForClickable} from "./../utils/helpers.ts";
 
 export class MailPageObject{
 

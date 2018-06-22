@@ -15,3 +15,4 @@
                              - ** $ sudo apt-get update**
                              - ** $ sudo apt-get install allure-commandline**            
 * запуск allure-reporter - **$ allure generate**   // перед запуском генерации нужно перейтив папку где лежит отчет например ~/Test/UIAutomationTest/e2e/reporter $
+* поиск локатора в консоли - document.querySelectorAll("input.d-input__field")[0].value='sdfsd'

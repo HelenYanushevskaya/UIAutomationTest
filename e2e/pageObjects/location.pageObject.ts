@@ -1,6 +1,5 @@
-import {by, element, ElementFinder} from 'protractor';
-import {waitFor, waitForClickable, setText} from "./../utils/helpers.ts";
-import {helpers} from "../utils/helpers";
+import {by, element, ElementFinder, ElementArrayFinder} from 'protractor';
+import {helpers} from '../utils/helpers';
 
 export class LocationPageObject {
 
@@ -12,7 +11,7 @@ export class LocationPageObject {
     return element(by.className('popup_to_bottom'));
   }
 
-  get searchlocation(): ElementsFinder {
+  get searchlocation(): ElementArrayFinder {
     return element.all(by.className('b-autocomplete-item__reg'));
   }
 
@@ -23,7 +22,7 @@ export class LocationPageObject {
   async setValueLocation(value: string) {
     await helpers.sendTextAction(this.inputLocation, value);
     await helpers.waitElementEC(this.popupSearchlocation);
-    await helpers.waitForClickableEC(this.firstSearchlocation);
+    await helpers.waitForClickable(this.firstSearchlocation);
     await this.firstSearchlocation.click();
   }
 }

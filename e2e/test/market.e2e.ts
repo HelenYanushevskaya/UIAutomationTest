@@ -11,13 +11,13 @@ describe('Работа с базовыми контролами', () => {
   it('Проверка работы базовых контроллеров', async () => {
     const value = 'привет';
 
-    await helpers.scrollToElementAction(marketPO.xiaomi);
+    await helpers.focusElement(marketPO.xiaomi);
     await helpers.checkCheckbox(marketPO.xiaomi);
 
-    await helpers.scrollToElementAction(marketPO.storeRating1);
+    await helpers.focusElement(marketPO.storeRating1);
     await helpers.checkRadioButton(marketPO.storeRating1);
 
-    await helpers.scrollToElementAction(marketPO.headerSearch);
+    await helpers.focusElement(marketPO.headerSearch);
     await helpers.setText(marketPO.headerSearch, value);
     await helpers.selectFromDropdownByItem(marketPO.searchSuggest, 1);
   });

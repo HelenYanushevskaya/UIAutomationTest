@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "pree2e": "sudo webdriver-manager update --standalone false --gecko false",
+    //"pree2e": "sudo webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor e2e/utils/protractor.conf.js "
   },
   "private": true,

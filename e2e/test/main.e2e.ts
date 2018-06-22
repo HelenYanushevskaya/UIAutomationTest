@@ -11,7 +11,7 @@ describe('Первый пулл тестов', () => {
     await basePO.goToYandexPage();
   });
 
-  fit('Изменение информации в "ЕЩЕ" при смены локации', async () => {
+  it('Изменение информации в "ЕЩЕ" при смены локации', async () => {
     const LondonLocation = 'Лондон';
     const ParisLocation = 'Париж';
     await mainPO.goToLocation();

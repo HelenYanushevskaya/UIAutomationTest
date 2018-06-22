@@ -1,4 +1,5 @@
 import {browser, ElementArrayFinder, ElementFinder, protractor} from 'protractor';
+import {marketPO} from '../pageObjects/market.pageObject';
 
 export class Helpers {
 
@@ -6,7 +7,7 @@ export class Helpers {
     if (count < 10) {
       try {
         const result = await element.isDisplayed();
-        if (result == false) {
+        if (result === false) {
           browser.sleep(1000);
           count++;
           if (message) {
@@ -29,7 +30,7 @@ export class Helpers {
         console.log('Элемент не существует в DOM ' + message);
         this.checkElementDisplayed(element, count, message);
       } else {
-        console.log('Элемент не существует в DOM ');
+       console.log('Элемент не существует в DOM ');
         this.checkElementDisplayed(element, count);
       }
       return false;
@@ -41,12 +42,6 @@ export class Helpers {
     this.checkElementDisplayed(element, count, message);
   }
 
-  async waitForClickableEC(element: ElementFinder) {
-    const EC = protractor.ExpectedConditions;
-
-    await browser.wait(EC.elementToBeClickable(element, 5000));
-  }
-
   async scrollTo(element: ElementFinder) {
     const driver = browser.driver;
     await driver.executeScript('arguments[0].scrollIntoView();', element.getWebElement());
@@ -54,31 +49,29 @@ export class Helpers {
 
   async checkCheckbox(element: ElementFinder) {
     await this.waitFor(element);
-    await this.waitForClickableEC(element);
+    await this.waitForClickable(element);
     await element.click();
   }
 
   async checkRadioButton(element: ElementFinder) {
     await this.waitFor(element);
-    await this.waitForClickableEC(element);
+    await this.waitForClickable(element);
     await element.click();
   }
 
   async setText(element: ElementFinder, text: string): string {
-    await this.waitFor(element);
+    await this.waitElement(element);
     await element.clear();
     await element.sendKeys(text);
-
-    return await element.getAttribute('value');
+    await helpers.waitForDisappearance(marketPO.preload.first());
+    //eturn await element.getAttribute('value');
   }
 
-//в функцию отправляем список элементов из выпадающего списка и номер на который нужно кликнуть
   async selectFromDropdownByItem(elements: ElementArrayFinder, item: number) {
-    if (item) { //если введен номер элемента в списке
-      this.waitForClickableEC(elements.get(item)); //ждем пока он не станет кликабельным
-      await
-      elements.get(item).click(); //кликаем на элемент
-    }
+    if (item) {
+      await this.waitForClickable(elements.get(item));
+      await elements.get(item).click();
+     }
   }
 
   async pressEnter() {
@@ -89,7 +82,7 @@ export class Helpers {
   }
 
   async sendTextAction(element: ElementFinder, value: string) {
-    await element.clear(); //для очистки поля
+    await element.clear();
     await browser
       .actions()
       .click(element)
@@ -104,7 +97,7 @@ export class Helpers {
       .perform();
   }
 
-  async scrollToElementAction(element: ElementFinder) {
+  async focusElement(element: ElementFinder) {
     await browser
       .actions()
       .mouseDown(element)
@@ -112,22 +105,30 @@ export class Helpers {
   }
 
   async waitAndClick(element: ElementFinder): string {
-    await this.waitForClickableEC(element);
-    await element.click();
+    await this.waitForClickable(element);
+    await this.clickElementAction(element);
   }
 
-  async waitElementEC(element: ElementFinder): string {
+  async waitElement(element: ElementFinder): string {
     const EC = protractor.ExpectedConditions;
 
-    browser.wait(EC.visibilityOf(element), 5000);
+    browser.wait(EC.visibilityOf(element), 10000);
   }
 
-  async waitForClickableEC(element: ElementFinder) {
+  async waitForClickable(element: ElementFinder) {
     const EC = protractor.ExpectedConditions;
 
-    await browser.wait(EC.elementToBeClickable(element, 5000,));
+    await browser.wait(EC.elementToBeClickable(element, 5000));
   }
 
+  async waitForDisappearance(element: ElementFinder) {
+    const EC = protractor.ExpectedConditions;
+    try {
+      await browser.wait(EC.invisibilityOf(element, 5000));
+    } catch (error) {
+      throw expectationFailOutput || error;
+    }
+  }
 }
 
 export const helpers = new Helpers();
