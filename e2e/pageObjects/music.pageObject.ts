@@ -40,7 +40,6 @@ export class MusicPageObject {
   }
 
   async searchMusic(music: string, clickElement: ElementFinder, waitElement: ElementArrayFinder) {
-    await browser.sleep(1000);
     await helpers.setText(musicPO.inputSearchMusic, music);
     await helpers.waitForClickable(clickElement);
     await helpers.waitAndClick(clickElement);
@@ -54,6 +53,14 @@ export class MusicPageObject {
     await helpers.scrollTo(this.popularTracks);
     await helpers.waitAndClick(this.popularTracks);
   }
+
+  async toEqualMusic(text: Array, music: string): boolean {
+    let count = 0;
+    for (let i: number; i < text.length; i++) {
+     if (text[i] == music ) { count++; }
+    }
+    if (count == text.length) { return true; } else { return false; }
+}
 }
 
 export const musicPO = new MusicPageObject();

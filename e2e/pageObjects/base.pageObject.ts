@@ -79,7 +79,6 @@ export class BasePageObject {
 
   async invalidLogin(login: string, password: string) {
     await basePO.login(login, password);
-    await browser.sleep(1000);
     await helpers.waitElementEC(basePO.errorAutorization);
   }
 
@@ -104,7 +103,6 @@ export class BasePageObject {
     await helpers.waitElement(musicPO.inputSearchMusic);
     await helpers.waitForDisappearance(musicPO.overhead);
     await helpers.waitForClickable(musicPO.inputSearchMusic);
-    await browser.sleep(1000);
   }
 
   async goToMaroon5() {

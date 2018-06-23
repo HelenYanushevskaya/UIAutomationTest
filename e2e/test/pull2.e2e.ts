@@ -5,10 +5,12 @@ import { musicPO } from './../pageObjects/music.pageObject';
 import {helpers} from '../utils/helpers';
 
 fdescribe('Второй пулл тестов', () => {
+  const music: string = 'Maroon 5';
+  const login: string = 'AutotestUser';
+  const password: string = 'AutotestUser123';
+  const searchValue: string = 'Note 8';
 
   it('Яндекс маркет - добавление в сравнение', async () => {
-    const searchValue = 'Note 8';
-
     await basePO.navigateTo(mainPO.linkMarket);
     await marketPO.addProduct(searchValue);
 
@@ -22,8 +24,7 @@ fdescribe('Второй пулл тестов', () => {
   });
 
   it('Яндекс маркет - удаление добавленных товаров', async () => {
-    const searchValue = 'Note 8';
-    const dontHaveProducts = 'Товаров нет';
+    const dontHaveProducts: string = 'Товаров нет';
 
     await basePO.navigateTo(mainPO.linkMarket);
     await marketPO.addProduct(searchValue);
@@ -43,72 +44,56 @@ fdescribe('Второй пулл тестов', () => {
     await marketPO.clickLinkElectronics();
     await marketPO.clickLinkActionCameras();
 
-    const currentCost = await marketPO.getNumberCost(marketPO.cost);
+    const currentCost: Array = await marketPO.getNumberCost(marketPO.cost);
 
     await marketPO.sortDec();
 
-    const afterSortCost = await marketPO.getNumberCost(marketPO.cost);
+    const afterSortCost: Array = await marketPO.getNumberCost(marketPO.cost);
 
-    await currentCost.sort(function (a, b) {
-      return b - a;
-    });
+    await marketPO.sortArrayWidthDec(afterSortCost);
 
     expect(currentCost).toEqual(afterSortCost);
   });
 
   it('Яндекс маркет - сортировка по тегу:', async () => {
-    const width = '50';
+    const width: string = '50';
 
     await basePO.navigateTo(mainPO.linkMarket);
     await marketPO.clickLinkAppliances();
     await marketPO.clickLinkActionRefrigerators();
     await helpers.focusElement(marketPO.inputWidth);
 
-    const currentWidth = await marketPO.getWidthRefrigerators(marketPO.textWidthRefrigerators);
+    const currentWidth: Array = await marketPO.getWidthRefrigerators(marketPO.textWidthRefrigerators);
 
     await helpers.setText(marketPO.inputWidth, width);
 
+    const afterSortWidth: Array = await marketPO.getWidthRefrigerators(marketPO.textWidthRefrigerators);
 
-    const afterSortWidth = await marketPO.getWidthRefrigerators(marketPO.textWidthRefrigerators);
-
-    await currentWidth.sort(function (a, b) {
-      return b - a;
-    });
+    await marketPO.sortArrayWidthDec(afterSortWidth);
 
     expect(currentWidth).toEqual(afterSortWidth);
   });
 
   it('Яндекс - музыка', async () => {
-    const music = 'Maroon 5';
-    const login = 'AutotestUser';
-    const password = 'AutotestUser123';
-
     await basePO.login(login, password);
     await basePO.goToMusic();
     await musicPO.searchMusic(music, musicPO.musicMaroon5, musicPO.singerPopularAlbums);
 
-    const text: string = await musicPO.singerPopularAlbums.getAttribute('title');
+    const text: Array = await musicPO.singerPopularAlbums.getAttribute('title');
 
-    for (let i = 0; i < text.length; i++) {
-      await expect(text[i]).toEqual(music);
-    }
-
+    expect(await musicPO.toEqualMusic(text, music)).toBe(true);
   });
 
   it('Яндекс - музыка - вопроизведение', async () => {
-    const music = 'Maroon 5';
-    const login = 'AutotestUser';
-    const password = 'AutotestUser123';
-
     await basePO.login(login, password);
     await basePO.goToMusic();
     await musicPO.searchMusic(music, musicPO.musicMaroon5, musicPO.singerPopularAlbums);
 
     await musicPO.clickPlayMusic();
-    await expect(musicPO.pauseMusic.isDisplayed()).toBe(true);
+    expect(await musicPO.pauseMusic.isDisplayed()).toBe(true);
 
     await musicPO.clickPlayMusic();
-    await expect(musicPO.playMusic.isDisplayed()).toBe(true);
+    expect(await  musicPO.playMusic.isDisplayed()).toBe(true);
   });
 });
 

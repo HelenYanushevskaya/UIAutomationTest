@@ -62,23 +62,23 @@ export class MarketPageObject {
   }
 
   get linkCamera(): ElementFinder  {
-    return element(by.cssContainingText('.catalog-menu__list-item', "Экшн-камеры"));
+    return element(by.cssContainingText('.catalog-menu__list-item', 'Экшн-камеры'));
   }
 
   get linkRefrigerators(): ElementArrayFinder  {
-    return element.all(by.cssContainingText('.catalog-menu__list-item', "Холодильники"));
+    return element.all(by.cssContainingText('.catalog-menu__list-item', 'Холодильники'));
   }
 
   get linkElectronics(): ElementFinder  {
-    return element(by.cssContainingText('.topmenu__link', "Электроника"));
+    return element(by.cssContainingText('.topmenu__link', 'Электроника'));
   }
 
   get linkAppliances(): ElementFinder  {
-    return element(by.cssContainingText('.topmenu__link', "Бытовая техника"));
+    return element(by.cssContainingText('.topmenu__link', 'Бытовая техника'));
   }
 
   get linkSortCost(): ElementFinder  {
-    return element(by.cssContainingText('.n-filter-sorter__link', "по цене"));
+    return element(by.cssContainingText('.n-filter-sorter__link', 'по цене'));
   }
 
   get inputWidth(): ElementFinder  {
@@ -94,7 +94,7 @@ export class MarketPageObject {
   }
 
   get textWidthRefrigerators(): ElementArrayFinder  {
-    return element.all(by.cssContainingText('.n-snippet-card2__desc-item', "x"));
+    return element.all(by.cssContainingText('.n-snippet-card2__desc-item', 'x'));
   }
 
   async addProductInBasket(number: number) {
@@ -114,7 +114,6 @@ export class MarketPageObject {
 
     await helpers.focusElement(deleteElementBasket);
     await helpers.waitAndClick(deleteElementBasket);
-    await browser.sleep(1000); //анимация удаления товаров
   }
 
   async clickLinkElectronics() {
@@ -161,6 +160,12 @@ export class MarketPageObject {
     await marketPO.linkSortCost.click();
     await helpers.waitForDisappearance(this.preload.first());
     await helpers.waitFor(this.cost.first());
+  }
+
+  async sortArrayWidthDec(array: Array) {
+    await array.sort(function (a: number, b: number) {
+      return b - a;
+    });
   }
 
   async getWidthRefrigerators(elementArray: ElementArrayFinder): Array {
