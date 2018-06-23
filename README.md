@@ -16,9 +16,10 @@
 3. **$ sudo apt-get install allure-commandline**   
 * запуск allure-reporter - **$ allure generate**   // перед запуском генерации нужно перейтив папку где лежит отчет например _~/Test/UIAutomationTest/e2e/reporter $_
 * поиск локатора в консоли - _document.querySelectorAll("input.d-input__field")[0].value='sdfsd'_
+
 Установка проекта
 =====================
-1. склонировать проект - git clone https://github.com/HelenYanushevskaya/UIAutomationTest.git
-2. установить зависимости - npm install
-3. запуск тестов - npm run e2e
-4. генерация отчета - allure generate
+1. склонировать проект - **$ git clone https://github.com/HelenYanushevskaya/UIAutomationTest.git**
+2. установить зависимости - **$ npm install**
+3. запуск тестов - **$ npm run e2e**
+4. генерация отчета - **$ allure generate**
