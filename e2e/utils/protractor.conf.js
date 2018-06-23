@@ -37,7 +37,7 @@ exports.config = {
     print: function() {}
   },
   onPrepare() {
-    /*jasmine.getEnv().addReporter(htmlReporter);
+    jasmine.getEnv().addReporter(htmlReporter);
 
     jasmine.getEnv().addReporter(allureReporter);
     jasmine.getEnv().afterEach(function(done){
@@ -47,7 +47,7 @@ exports.config = {
         }, 'image/png')();
         done();
       })
-    });*/
+    });
 
     require('ts-node').register({
       project: require('path').join(__dirname, './tsconfig.e2e.json')
