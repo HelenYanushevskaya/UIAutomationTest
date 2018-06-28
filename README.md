@@ -35,3 +35,4 @@
 7. Основы JS - _http://bonsaiden.github.io/JavaScript-Garden/ru/_
 8. Protractor style guide - _http://www.protractortest.org/#/style-guide_
 9. Введение в TypeScript - _https://metanit.com/web/typescript/1.1.php_
+10. Список ассертов jasmine -_https://github.com/JamieMason/Jasmine-Matchers_
